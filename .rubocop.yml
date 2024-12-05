@@ -4,9 +4,11 @@
 AllCops:
   TargetRubyVersion: 3.2.3
   NewCops: enable
+  SuggestExtensions: false
 
   Exclude:
   - 'bin/*'
+  - 'db/*'
 
 Style/Documentation:
   Enabled: false

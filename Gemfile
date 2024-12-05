@@ -27,6 +27,9 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'rubocop', '~> 1.61', require: false
+  gem 'rubocop-performance', '~> 1.20', require: false
+  gem 'rubocop-rails', '~> 2.24', require: false
+  gem 'rubocop-rspec', '~> 2.27', require: false
 end
 
 group :development do
