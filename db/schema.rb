@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_033812) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_105722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "following_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "following_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["following_user_id"], name: "index_following_users_on_following_user_id"
+    t.index ["user_id", "following_user_id"], name: "index_following_users_on_user_id_and_following_user_id", unique: true
+    t.index ["user_id"], name: "index_following_users_on_user_id"
+  end
+
+  create_table "sleep_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.datetime "clock_in", null: false
+    t.datetime "clock_out"
+    t.interval "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["duration"], name: "index_sleep_records_on_duration"
+    t.index ["user_id"], name: "index_sleep_records_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -20,4 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_033812) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "following_users", "users"
+  add_foreign_key "following_users", "users", column: "following_user_id"
+  add_foreign_key "sleep_records", "users"
 end
