@@ -7,8 +7,8 @@ ruby '3.2.3'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.4', '>= 7.1.4.2'
 
+gem 'active_model_serializers'
 gem 'pg'
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'annotate', '~> 3.2' # Annotates Rails/ActiveRecord Models, etc based on the database schema
 gem 'dotenv-rails', '~> 3.1'
