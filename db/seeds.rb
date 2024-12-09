@@ -1,11 +1,28 @@
 # frozen_string_literal: true
 
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+users = 5.times.map do |i|
+  User.create!(name: "User #{i + 1}")
+end
+
+users.each do |user|
+  # Each user follows 2-3 other users (excluding themselves)
+  following_users = users.reject { |u| u == user }.sample(rand(2..3))
+  following_users.each do |following_user|
+    FollowingUser.create!(user: user, following_user: following_user)
+  end
+end
+
+users.each do |user|
+  3.times do |i|
+    clock_in_time = rand(1..7).days.ago
+    clock_out_time = clock_in_time + rand(1..8).hours
+    SleepRecord.create!(
+      user: user,
+      clock_in: clock_in_time,
+      clock_out: clock_out_time,
+      duration: clock_out_time - clock_in_time
+    )
+  end
+end
+
+puts "Seed data created successfully."
