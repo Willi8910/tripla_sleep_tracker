@@ -16,3 +16,6 @@ Style/Documentation:
 
 Metrics/BlockLength:
   Max: 200
+
+Metrics/MethodLength:
+  Max: 30

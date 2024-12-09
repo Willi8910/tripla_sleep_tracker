@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_sleep_records_on_duration  (duration)
-#  index_sleep_records_on_user_id   (user_id)
+#  index_sleep_records_on_created_at  (created_at)
+#  index_sleep_records_on_duration    (duration)
+#  index_sleep_records_on_user_id     (user_id)
 #
 # Foreign Keys
 #
