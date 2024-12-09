@@ -27,24 +27,24 @@ RSpec.describe SleepRecord, type: :model do
   let(:user) { User.create!(name: 'User A') }
 
   it 'is valid with valid attributes' do
-    record = SleepRecord.new(user: user, clock_in: Time.now - 8.hours, clock_out: Time.now)
+    record = SleepRecord.new(user:, clock_in: Time.now - 8.hours, clock_out: Time.now)
     expect(record).to be_valid
   end
 
   it 'is invalid without clock_in' do
-    record = SleepRecord.new(user: user, clock_in: nil)
+    record = SleepRecord.new(user:, clock_in: nil)
     expect(record).not_to be_valid
   end
 
   it 'calculates duration when clock_out is set' do
     clock_in = Time.now - 8.hours
     clock_out = Time.now
-    record = SleepRecord.create!(user: user, clock_in: clock_in, clock_out: clock_out)
+    record = SleepRecord.create!(user:, clock_in:, clock_out:)
     expect(record.duration).to eq(clock_out - clock_in)
   end
 
   it 'validates that clock_out is after clock_in' do
-    record = SleepRecord.new(user: user, clock_in: Time.now, clock_out: Time.now - 1.hour)
+    record = SleepRecord.new(user:, clock_in: Time.now, clock_out: Time.now - 1.hour)
     expect(record).not_to be_valid
     expect(record.errors[:clock_out]).to include('must be after clock_in')
   end

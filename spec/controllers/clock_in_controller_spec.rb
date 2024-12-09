@@ -10,7 +10,7 @@ RSpec.describe ClockInController, type: :controller do
     context 'when user is authenticated' do
       before do
         request.headers.merge!(headers)
-        create(:sleep_record, user: user, clock_in: Time.current - 1.day)
+        create(:sleep_record, user:, clock_in: Time.current - 1.day)
       end
 
       it 'creates a new sleep record and returns the list of all clocked-in records' do
@@ -21,7 +21,7 @@ RSpec.describe ClockInController, type: :controller do
         expect(json_response).to be_an_instance_of(Array)
         expect(json_response.size).to be > 1
 
-        initial_record = SleepRecord.find_by(user: user, clock_in: ..Time.current)
+        initial_record = SleepRecord.find_by(user:, clock_in: ..Time.current)
         expect(json_response.map { |record| record['id'] }).to include(initial_record.id)
       end
     end
@@ -39,9 +39,9 @@ RSpec.describe ClockInController, type: :controller do
     context 'when user is authenticated' do
       before do
         request.headers.merge!(headers)
-        SleepRecord.create!(user: user, clock_in: Time.current - 3.days, clock_out: nil, duration: nil)
-        SleepRecord.create!(user: user, clock_in: Time.current - 2.days, clock_out: nil, duration: nil)
-        SleepRecord.create!(user: user, clock_in: Time.current - 1.day, clock_out: nil, duration: nil)
+        SleepRecord.create!(user:, clock_in: Time.current - 3.days, clock_out: nil, duration: nil)
+        SleepRecord.create!(user:, clock_in: Time.current - 2.days, clock_out: nil, duration: nil)
+        SleepRecord.create!(user:, clock_in: Time.current - 1.day, clock_out: nil, duration: nil)
       end
 
       it 'returns all clocked-in records, ordered by created_at' do

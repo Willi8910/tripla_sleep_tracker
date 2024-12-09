@@ -28,7 +28,7 @@ RSpec.describe FollowingUser, type: :model do
   let(:followee) { User.create!(name: 'User B') }
 
   it 'is valid with valid attributes' do
-    following_user = FollowingUser.new(user: user, following_user: followee)
+    following_user = FollowingUser.new(user:, following_user: followee)
     expect(following_user).to be_valid
   end
 
@@ -38,13 +38,13 @@ RSpec.describe FollowingUser, type: :model do
   end
 
   it 'is invalid without a following_user' do
-    following_user = FollowingUser.new(user: user, following_user: nil)
+    following_user = FollowingUser.new(user:, following_user: nil)
     expect(following_user).not_to be_valid
   end
 
   it 'prevents duplicate following relationships' do
-    FollowingUser.create!(user: user, following_user: followee)
-    duplicate = FollowingUser.new(user: user, following_user: followee)
+    FollowingUser.create!(user:, following_user: followee)
+    duplicate = FollowingUser.new(user:, following_user: followee)
     expect(duplicate).not_to be_valid
   end
 end
